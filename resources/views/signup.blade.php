@@ -6,6 +6,8 @@
 
 @section('content')
 
+
+
 <div class="main-login main-center col-md-6">
 					<form class="form-horizontal" method="post" action="{{route('postsignup')}}">
 						
@@ -70,11 +72,11 @@
 						</div>
 
 						<div class="form-group">
-							<label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+							<label for="password_confirmation" class="cols-sm-2 control-label">Confirm Password</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+									<input type="password" class="form-control" name="password_confirmation" id="password_confirm"  placeholder="Confirm your Password"/>
 								</div>
 							</div>
 						</div>
@@ -89,6 +91,13 @@
 				         {{csrf_field()}}
 					</form>
 				</div>
+
+<div class="container col-md-6">
+
+
+
+
+
 
 
 

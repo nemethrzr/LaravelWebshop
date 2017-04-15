@@ -3,41 +3,68 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\MessageBag;
+use App\Http\Requests\UserSignUpRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 
 use App\User;
 
 
 class UserController extends Controller
 {
+ 	use AuthenticatesUsers;
+
     public function getSignUp()
     {
     	
     	return view('signup');
     }
-    public function postSignUp(Request $request){
-    	$data['first_name'] = $request['first_name'];
-    	$data['last_name']  = $request['last_name'];
-    	$data['zipcode']      = $request['zipcode'];
-    	$data['city']      = $request['city'];
-    	$data['email']      = $request['email'];
-    	$data['password']      = $request['password'];
+    public function postSignUp(UserSignUpRequest $request){
+		$user = new User();    	
+    	$user->fill($request->all());
+    	$user->password = bcrypt($user->password);
+    	if($user->save()){
+    		
 
-var_dump($request->all());
-    	$user = new User();
-    	$user->save($request->all());
-    	//$user->fill($request->all());
-    	//$user->save();
+    		return redirect()->back()->with('message', 'Sikeresen regisztráltál, mostmár betudsz lépni az oldalra az emailcímeddel és a jelszavaddal.');
+    	}
+
+    	var_dump($request->all());
+    	return view('signup',['errors'=>$errors]);
 
 
-    	/*$this->validate($request,[
-    		'last_name'=>'required',
-    		'last_name'=>'required',
-    		'email'=>'required',
-    		'zipcode'=>'numeric|max:4',
-    		]);*/
+    	
     	
 
 
     	//return $this->back();
     }
+
+    public function getSignIn(Request $request)
+    {
+    	return view('signin');
+    }
+
+    public function postSignIn(Request $request)
+    {
+    	$email=$request['email'];
+    	$password=$request['password'];
+    	if(Auth::attempt(['email'=>$email,'password'=>$password]))
+    	{
+    		return redirect()->route('home');
+    	}
+    	return redirect(route('getsignin'));
+    }
+
+
+    public function getSignOut(Request $request)    
+    {
+    	Auth::logout();
+    	return redirect()->back();
+    }
+
 }
