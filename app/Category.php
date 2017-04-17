@@ -9,4 +9,9 @@ class Category extends Model
     public function products(){
     	return $this->belongsTo('App\Product');
     }
+
+
+    public function getMenu(){
+    	return $this->all();
+    }
 }
