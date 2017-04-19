@@ -13,7 +13,7 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             @foreach((new App\Content)->getMenu() as $menu)
-              <li><a href="{{ route('getcontent',['content_slug'=>$menu['slug']]) }}">{{$menu['menu']}}</a></li>              
+              <li @if(Request::url()==route('getcontent',['content_slug'=>$menu['slug']])) class="active" @endif ><a href="{{ route('getcontent',['content_slug'=>$menu['slug']]) }}">{{$menu['menu']}}</a></li>              
             @endforeach
             <li class="dropdown">
 
