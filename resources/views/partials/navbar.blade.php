@@ -21,7 +21,7 @@
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Termékek</li>
                 @foreach(App\Category::orderBy('name','ASC')->get() as $category)
-                  <li><a href="{{route('getproducts',['category_slug'=>$category['slug']])}}">{{$category['name']}}</a></li>                  
+                  <li @if(Request::url()==route('getproducts',['category_slug'=>$category['slug']])) class="active" @endif><a href="{{route('getproducts',['category_slug'=>$category['slug']])}}">{{$category['name']}}</a></li>                  
                 @endforeach
                 <li role="separator" class="divider"></li>                
                 <li><a href="#">Separated link</a></li>
@@ -30,7 +30,7 @@
             </li>
           </ul>
             <ul class="nav navbar-nav navbar-right">            
-          <li><a href="{{route('getcart')}}">Cart(0)</a></li>  
+              <li class="@if(Request::url()==route('getcart')) active @endif "><a href="{{route('getcart')}}">Cart(0)</a></li>  
 
           @if(Auth::guest())
           

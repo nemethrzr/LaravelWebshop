@@ -70,8 +70,10 @@ class UserController extends Controller
 
     public function getAccount(){
         $user = Auth::user();
-
-        return view('user.show',['user'=>$user]);
+        session('product_id','12');
+        $session_product_id = session('product_id');
+        $id = session('product_id');
+        return view('user.show',['user'=>$user,'session_product_id'=>$session_product_id,'id'=>$id]);
     }
 
 }

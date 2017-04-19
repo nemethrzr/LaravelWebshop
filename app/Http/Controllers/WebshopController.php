@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Category;
 use App\Products;
+use App\Cart;
 
 class WebshopController extends Controller
 {
@@ -25,5 +26,17 @@ class WebshopController extends Controller
     public function getCart()
     {
     	return view('webshop.shoppingcart');
+    }
+
+
+    public function getAddToCart(Request $request, $id){
+        $product = Product::find($id);
+        $oldCart = Session::has('cart')?Session::get('cart'): null;
+        $cart = new Cart($oldCart);
+        $cart->add($product,$id);
+
+        $request->session()->put('cart',$cart);
+        return redirect()->back();
+
     }
 }

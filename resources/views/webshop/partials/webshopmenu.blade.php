@@ -1,9 +1,9 @@
 
-	<ul>
-	@foreach((new App\Category)->getMenu() as $category)
+	<div class="list-group">
+	@foreach(App\Category::orderBy('name','ASC')->get() as $category)
 	
-	<li><a href="{{route('getproducts',['category_slug'=>$category['slug']])}}">{{$category['name']}}</a></li>
+	<a class="list-group-item @if(Request::url()==route('getproducts',['category_slug'=>$category['slug']])) active @endif " href="{{route('getproducts',['category_slug'=>$category['slug']])}}">{{$category['name']}}</a>
 	
 	@endforeach
-	</ul>
+	</div>
 

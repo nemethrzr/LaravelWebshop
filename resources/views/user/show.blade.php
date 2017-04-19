@@ -5,7 +5,8 @@
 
 <h1>Profilom</h1>
 
-
+<p>{{ $session_product_id }}</p>
+<p>{{ $id }}</p>
 <div>{{$user->id}}</div>
 <div>{{$user->first_name}}</div>
 <div>{{$user->last_name}}</div>
