@@ -3,6 +3,6 @@
 
 @section('content')
 
-
+<p>{{$content['description']}}</p>
 
 @endsection

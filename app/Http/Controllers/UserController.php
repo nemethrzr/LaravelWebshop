@@ -67,4 +67,11 @@ class UserController extends Controller
     	return redirect()->back();
     }
 
+
+    public function getAccount(){
+        $user = Auth::user();
+
+        return view('user.show',['user'=>$user]);
+    }
+
 }
