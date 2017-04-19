@@ -30,7 +30,10 @@
             </li>
           </ul>
             <ul class="nav navbar-nav navbar-right">            
-              <li class="@if(Request::url()==route('getcart')) active @endif "><a href="{{route('getcart')}}">Cart(0)</a></li>  
+              <li class="@if(Request::url()==route('getcart')) active @endif ">
+              <a href="{{route('getcart')}}">Cart({{Session::has('cart') ? Session::get('cart')->totalQty : 0}})</a>
+              </li>  
+
 
           @if(Auth::guest())
           

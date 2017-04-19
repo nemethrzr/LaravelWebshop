@@ -31,6 +31,9 @@ Route::group(['prefix'=>'webshop'],function(){
 });
 
 
+Route::get('/addtocart/{id}','WebshopController@getAddToCart')->name('getaddtocart');
+Route::get('/removefromcart/{id}','WebshopController@getRemoveFromCart')->name('getremovefromcart');
+//Route::get('/checkout');
 
 // - tartalmi rész
 
