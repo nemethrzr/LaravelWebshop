@@ -40,6 +40,11 @@ class WebshopController extends Controller
     public function getAddToCart(Request $request, $id,$qty=1){
         $product = Product::find($id);
         $oldCart = Session::has('cart')?Session::get('cart'): null;
+
+        if($qty==0){
+            //ide még bekerül valami logika
+        }
+
         $cart = new Cart($oldCart);
         $cart->add($product,$id,$qty);
         
