@@ -33,7 +33,7 @@
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <input type="number" class="qty form-control" value="{{ $product['qty'] }}">
-                        <input type="hidden" class="addtocart" name="addtocart" value="{{route('getaddtocart',['id'=>$product['item']['id']])}}">
+                        <input type="hidden" class="id form-control" value="{{ $product['item']['id'] }}">
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['item']['price'],0,' ',' ') }} Ft</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong class="total"> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
@@ -97,18 +97,20 @@
 @section('scripts')
 
 <script type="text/javascript">
-    
+    var url    = "{{route('postupdatecart')}}";
+    var _token = "{{csrf_token()}}";
     $('.qty').on('change',function(event){
         var qty = $(this).val();
-        var url = $(this).siblings('.addtocart').val()+'/'+qty;
+        var id  = $(this).siblings('.id').val();
         console.log('changed the Quantity');
         console.log('the new qty:'+qty);
         console.log('the requested url:'+url);
 
 
         $.ajax({
-            method: 'GET',
+            method: 'POST',
             url: url ,
+            data: {'_token':_token,'qty':qty,'id':id }
 
         }).done(function(msg){
             console.log('sikeres ajax küldés'+msg);
