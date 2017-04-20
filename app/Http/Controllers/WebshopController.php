@@ -35,13 +35,17 @@ class WebshopController extends Controller
     }
 
 
-    public function getAddToCart(Request $request, $id){
+    public function getAddToCart(Request $request, $id,$qty=1){
         $product = Product::find($id);
         $oldCart = Session::has('cart')?Session::get('cart'): null;
         $cart = new Cart($oldCart);
-        $cart->add($product,$id);
+        $cart->add($product,$id,$qty);
         
         $request->session()->put('cart',$cart);
+        
+        if($request->ajax()){
+            return $cart;
+        }
         return redirect()->back();
 
     }

@@ -23,7 +23,7 @@
                 @foreach($products->items as $product)
 
                
-                
+               
                 
 
 
@@ -38,7 +38,8 @@
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="number" class="form-control" id="exampleInputEmail1" value="{{ $product['qty'] }}">
+                        <input type="number" class="qty form-control" value="{{ $product['qty'] }}">
+                        <input type="hidden" class="addtocart" name="addtocart" value="{{route('getaddtocart',['id'=>$product['item']['id']])}}">
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['item']['price'],0,' ',' ') }} Ft</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
@@ -93,4 +94,36 @@
         </div>
     </div>
 </div>
+@endsection
+
+
+
+@section('scripts')
+
+<script type="text/javascript">
+    
+    $('.qty').on('change',function(event){
+        var qty = $(this).val();
+        var url = $(this).siblings('.addtocart').val()+'/'+qty;
+        console.log('changed the Quantity');
+        console.log('the new qty:'+qty);
+        console.log('the requested url:'+url);
+
+
+        $.ajax({
+            method: 'GET',
+            url: url ,
+           
+        }).done(function(msg){
+            console.log('sikeres ajax küldés'+msg);
+        });
+
+    });
+
+
+</script>
+
+
+
+
 @endsection

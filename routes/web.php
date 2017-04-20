@@ -30,8 +30,7 @@ Route::group(['prefix'=>'webshop'],function(){
 	Route::get('/{category_slug}/{product_slug}/{product_id}','WebshopController@getProduct')->name('getproduct');
 });
 
-
-Route::get('/addtocart/{id}','WebshopController@getAddToCart')->name('getaddtocart');
+Route::get('/addtocart/{id}/{qty?}','WebshopController@getAddToCart')->name('getaddtocart');
 Route::get('/removefromcart/{id}','WebshopController@getRemoveFromCart')->name('getremovefromcart');
 //Route::get('/checkout');
 
