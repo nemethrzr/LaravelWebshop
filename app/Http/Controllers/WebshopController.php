@@ -37,7 +37,34 @@ class WebshopController extends Controller
     }
 
 /* handle get and ajax get requests */
-    public function getAddToCart(Request $request, $id,$qty=1){
+    public function getAddToCart(Request $request, $id,$qty){
+        $product = Product::find($id);
+        $oldCart = Session::has('cart')?Session::get('cart'): null;
+
+        if($qty==0){
+            //ide még bekerül valami logika
+        }
+
+        $cart = new Cart($oldCart);
+        $cart->add($product,$id,$qty);
+        
+        $request->session()->put('cart',$cart);
+
+        if($request->ajax()){
+            return response()->json($cart);
+
+        }
+        return redirect()->back();
+
+    }
+    public function postAddToCart(Request $request){
+       /* $this->validate($request,[
+        
+            'qty'=>'numeric'
+            ]);*/
+        $id  = $request['id'];
+        $qty = $request['qty'];
+        
         $product = Product::find($id);
         $oldCart = Session::has('cart')?Session::get('cart'): null;
 
@@ -60,7 +87,7 @@ class WebshopController extends Controller
     public function getRemoveFromCart(Request $request,$id=null)
     {
         $oldCart = Session::has('cart')?Session::get('cart'): null;
-        if(!$oldCart || $id==null){
+        if($id==null){
             Session::remove('cart');
             return view('webshop.index');
         }

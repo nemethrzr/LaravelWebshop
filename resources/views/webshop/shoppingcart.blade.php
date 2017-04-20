@@ -124,7 +124,7 @@
         $('#subtotal').html(cart.totalPrice);
         $('#shipping').html(cart.shipping);
         $('#total').html(cart.totalPrice+cart.shipping);
-
+        $('#cartbadge').html(cart.totalQty);
         
 
         $.each(cart.items, function (index, value) {
