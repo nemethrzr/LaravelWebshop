@@ -21,13 +21,7 @@
                 <tbody>
                 
                 @foreach($products->items as $product)
-
-               
-               
-                
-
-
-                    <tr>
+                    <tr id="{{$product['item']['id']}}">
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ $product['item']['img'] }}" style="width: 72px; height: 72px;"> </a>
@@ -42,12 +36,12 @@
                         <input type="hidden" class="addtocart" name="addtocart" value="{{route('getaddtocart',['id'=>$product['item']['id']])}}">
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['item']['price'],0,' ',' ') }} Ft</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong class="total"> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
                         <td class="col-sm-1 col-md-1">
-                        <button type="button" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </button>
-                        <a href="{{route('getremovefromcart',['id'=>1])}}">Remove all</a>
+                        
+
+                        
+                        <a href="{{route('getremovefromcart',['id'=>$product['item']['id']])}}" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span>Remove</a>
                         </td>
                     </tr>
 
@@ -60,21 +54,21 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Subtotal</h5></td>
-                        <td class="text-right"><h5><strong>{{number_format($products->totalPrice,0,' ',' ')}} Ft</strong></h5></td>
+                        <td class="text-right"><h5><strong id="subtotal">{{number_format($products->totalPrice,0,' ',' ')}} Ft</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Estimated shipping</h5></td>
-                        <td class="text-right"><h5><strong>1500</strong></h5></td>
+                        <td class="text-right"><h5><strong id="shipping">{{$products->shipping}} Ft</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                        <td class="text-right"><h3><strong id="total">{{number_format($products->totalPrice+$products->shipping,0,' ',' ')}} Ft</strong></h3></td>
                     </tr>
                     <tr>
                         <td>   </td>
@@ -87,7 +81,9 @@
                         <td>
                         <button type="button" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
-                        </button></td>
+                        </button>
+                        <a href="{{route('getremovefromcart')}}">Remove all</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -113,12 +109,30 @@
         $.ajax({
             method: 'GET',
             url: url ,
-           
+
         }).done(function(msg){
             console.log('sikeres ajax küldés'+msg);
+            console.log('qty: '+msg.totalPrice);
+            console.log('items: '+msg.items);
+            updateCart(msg);
         });
 
+
     });
+
+    function updateCart(cart) {
+        $('#subtotal').html(cart.totalPrice);
+        $('#shipping').html(cart.shipping);
+        $('#total').html(cart.totalPrice+cart.shipping);
+
+        
+
+        $.each(cart.items, function (index, value) {
+            console.log(index);
+            console.log(value.item.id);
+            $('#'+index+' .total').html(value.price);
+        });
+    }
 
 
 </script>
