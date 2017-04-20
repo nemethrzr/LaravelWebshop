@@ -9,7 +9,7 @@
 
 
 
-<div class="container">
+
       
       <div class="row">
         @foreach($products as $product)
@@ -22,8 +22,6 @@
 	                <p>
 	                <form method="post" action="{{route('postaddtocart')}}">
 		                <input type="hidden" name="id" value="{{$product->id}}">
-		                <input type="number" name="qty" value="1" class="">  
-
 		                <button type="submit" class="btn btn-info btn-xs">Add to Cart</button>
 		                	{{csrf_field()}}
 	                </form>
@@ -39,6 +37,6 @@
 
 
       
-    </div><!-- End container -->
+    
 
 @endsection
