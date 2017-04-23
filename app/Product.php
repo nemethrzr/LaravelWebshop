@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Storage;
 
 class Product extends Model
 {
@@ -12,9 +13,10 @@ class Product extends Model
     
     protected $attributes = array(
         'Zipode' => '',
-        'pricewithtax'=>''
+        'pricewithtax'=>'',
+        'imgpath'=>''
     );
-    protected $appends = ['ZipCode','pricewithtax'];
+    protected $appends = ['ZipCode','pricewithtax','imgpath'];
 
     public function getZipCodeAttribute()
     {
@@ -40,6 +42,10 @@ class Product extends Model
         return $this->pricewithtax=$value;
 
 
+    }
+    public function getImgPathAttribute(){
+       
+        return Storage::url('img/deafult.jpg');
     }
 
     

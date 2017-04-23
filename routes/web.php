@@ -62,3 +62,7 @@ Route::group(['middleware'=>'auth'],function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+
+
+Route::get('/image/{filename}','WebshopController@getImage')->name('getimage');

@@ -10,7 +10,7 @@
 		#wrapper{padding-top: 60px;}
 		
 	</style>
-
+	@yield('style')
 </head>
 <body>
 

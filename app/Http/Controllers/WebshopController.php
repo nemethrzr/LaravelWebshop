@@ -10,6 +10,8 @@ use App\Cart;
 use Session;
 use DB;
 use Illuminate\Pagination\Paginator;
+use Storage;
+use Illuminate\Http\Response;
 
 class WebshopController extends Controller
 {
@@ -47,8 +49,21 @@ class WebshopController extends Controller
             ->where('categories.slug',$category_slug)
             ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','products.slug'])
             ->paginate($this->paginatePage);
- 
-        return view('webshop.productlist',['products'=>$products]);
+
+            $category = Category::where('slug',$category_slug)->select(['name','slug'])->first();
+            
+            if(!$products->isEmpty()){
+                return view('webshop.productlist',['products'=>$products,'category'=>$category]);        
+            }
+        return redirect()->route('home');
+
+            
+        
+
+        //return view('webshop.productlist',['products'=>$products,'category_name'=>$category_name,'category_slug'=>$category_slug]);
+
+
+            //);
  
     	//$users = DB::table('categories')->where('slug',$category_slug)->paginate(15);
     	
@@ -59,7 +74,9 @@ class WebshopController extends Controller
         ->where('products.id',$product_id)
         ->join('categories','categories.id','products.category_id')
         ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','categories.name AS category_name','products.slug'])->first();
-        return view('webshop.productdetail',['product'=>$product]);
+        if(!empty($product))
+            return view('webshop.productdetail',['product'=>$product]);
+        else return redirect()->route('webshop');
     }
     public function getCart()
     {
@@ -74,8 +91,17 @@ class WebshopController extends Controller
     }
 
 /* handle get and ajax get requests */
-    public function getAddToCart(Request $request, $id,$qty){
-        $product = Product::find($id);
+    /*public function getAddToCart(Request $request, $id,$qty){
+       // $product = Product::find($id)->with('category')->first();
+
+
+
+        $product = Product::with('category')
+        ->where('products.id',$_id)
+        ->join('categories','categories.id','products.category_id')
+        ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','categories.name AS category_name','products.slug'])->first();
+
+        dd($product);
         $oldCart = Session::has('cart')?Session::get('cart'): null;
 
         if($qty==0){
@@ -93,7 +119,7 @@ class WebshopController extends Controller
         }
         return redirect()->back();
 
-    }
+    }*/
     public function postAddToCart(Request $request){
        /* $this->validate($request,[
         
@@ -102,7 +128,10 @@ class WebshopController extends Controller
         $id  = $request['id'];
         $qty = $request['qty'];
         
-        $product = Product::find($id);
+        $product = Product::with('category')
+        ->where('products.id',$id)
+        ->join('categories','categories.id','products.category_id')
+        ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','categories.name AS category_name','products.slug'])->first();
         $oldCart = Session::has('cart')?Session::get('cart'): null;
 
         if($qty==0){
@@ -164,6 +193,11 @@ class WebshopController extends Controller
         $request->session()->put('cart',$cart);
 
         return redirect()->back();
+    }
+
+    public function getImage($filename){      
+        $file = Storage::disk('local')->get($filename);        
+        return new Response($file,200);
     }
 
 }

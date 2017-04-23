@@ -38,8 +38,8 @@
 
           @if(Auth::guest())
           
-              <li><a href="{{route('getsignin')}}">Sign In</a></li>
-              <li class="active"><a href="{{route('getsignup')}}">Sign Up <span class="sr-only">(current)</span></a></li>
+              <li class="@if(Request::url()==route('getsignin')) active @endif"><a href="{{route('getsignin')}}">Sign In</a></li>
+              <li class="@if(Request::url()==route('getsignup')) active @endif"><a href="{{route('getsignup')}}">Sign Up <span class="sr-only">(current)</span></a></li>
             </ul>
           @else
             

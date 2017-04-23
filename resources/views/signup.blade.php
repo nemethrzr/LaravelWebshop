@@ -3,11 +3,10 @@
 
 
 
-
+@section('title','Regisztráció')
 @section('content')
 
-
-
+<div class="container">
 <div class="main-login main-center col-md-6">
 					<form class="form-horizontal" method="post" action="{{route('postsignup')}}">
 						
@@ -92,7 +91,7 @@
 					</form>
 				</div>
 
-<div class="container col-md-6">
+</div>
 
 
 

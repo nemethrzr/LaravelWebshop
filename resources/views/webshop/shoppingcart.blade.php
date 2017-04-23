@@ -1,5 +1,15 @@
 @extends('layouts.default')
+@section('title','Kosár')
 
+@section('style')
+<style type="text/css">
+    .table > tbody > tr > td {
+     vertical-align: middle;
+}
+    
+</style>
+
+@endsection
 @section('content')
 
 
@@ -21,14 +31,16 @@
                 <tbody>
                 
                 @foreach($products->items as $product)
+
                     <tr id="{{$product['item']['id']}}">
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ $product['item']['img'] }}" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="{{route('getproduct',['category_slug'=>$product['item']['category_slug'],'product_slug'=>$product['item']['slug'],'product_id'=>$product['item']['id']])}}"> <img class="media-object" src="{{ route('getimage',['filename'=>'deafult.jpg']) }}" style="width: 72px; height: 72px;"> </a>
                             <div class="media-body">
-                                <h4 class="media-heading"><a href="#">{{ $product['item']['name'] }}</a></h4>
-                                <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
-                                <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                <h4 class="media-heading">
+<a href="{{route('getproduct',['category_slug'=>$product['item']['category_slug'],'product_slug'=>$product['item']['slug'],'product_id'=>$product['item']['id']])}}">{{$product['item']['name']}}</a>
+                                </h4>
+                               
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
