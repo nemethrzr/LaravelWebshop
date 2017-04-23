@@ -6,18 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-	protected $appends = ['is_admin'];
-	protected $visible = ['is_admin'];
-	protected $attributes = ['is_admin'=>1];
+	/*protected $attributes = ['pricewithtax'=>'',];
+    protected $appends    =    ['pricewithtax'=>'',];
+    protected $available    = ['pricewithtax'];*/
+    
+    protected $attributes = array(
+        'Zipode' => '',
+        'pricewithtax'=>''
+    );
+    protected $appends = ['ZipCode','pricewithtax'];
+
+    public function getZipCodeAttribute()
+    {
+        return '6050'.$this->attributes['price'];
+    }
 
     public function category(){
 
     	return $this->belongsTo('App\Category');
     }
 
-    public function getIsAdminAttribute()
+    public function getPriceWithTaxAttribute()
     {
-        return $this->attributes['price'] . 'yes';
+        
+        $price = $this->attributes['price'];
+        return ($price * (27/100))+$price;
+
+
     }
+
+    public function setPriceWithTaxAttribute($value)
+    {
+        return $this->pricewithtax=$value;
+
+
+    }
+
     
 }

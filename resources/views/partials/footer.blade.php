@@ -31,7 +31,7 @@
 		<div class="col-md-3 col-sm-6">
 			<h4>My Account</h4>
 			<ul>
-				<li><a href="my_account.html">My Account</a></li>
+				<li><a href="{{route('getaccount')}}">My Account</a></li>
 				<li><a href="typography.html">Order History</a></li>
 				<li><a href="typography.html">Wish List</a></li>
 				<li><a href="typography.html">Newsletter</a></li>

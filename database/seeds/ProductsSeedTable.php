@@ -15,6 +15,7 @@ class ProductsSeedTable extends Seeder
         for ($i=0; $i < 100 ; $i++) { 
             $products[]=[
                 'name'=>str_random(10),
+                'slug'=>str_random(10),
                 'description'=>'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

@@ -9,9 +9,11 @@ use App\Product;
 use App\Cart;
 use Session;
 use DB;
+use Illuminate\Pagination\Paginator;
 
 class WebshopController extends Controller
 {
+    private $paginatePage = 12;
     public function index($value='')    
     {    	
     	return view('webshop.index');
@@ -31,18 +33,33 @@ class WebshopController extends Controller
         /*$products = Product::with('categories',function($query){
             $query->where('slug',$category_slug);
         })->paginate(10);*/
-        $products=DB::table('products')
+        
+        /*$products = DB::table('products')
             ->join('categories',function($join) use($category_slug){
                 $join->on('products.category_id','=','categories.id')
                     ->where('categories.slug','=',$category_slug);
-            })->select('products.id','products.name','products.description')->paginate(10);
+            })->select('products.id','products.name','products.description')->paginate($this->paginatePage);
+           */
 
-
+            
+            $products = Product::with('category')
+            ->join('categories','products.category_id','categories.id')
+            ->where('categories.slug',$category_slug)
+            ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','products.slug'])
+            ->paginate($this->paginatePage);
+ 
         return view('webshop.productlist',['products'=>$products]);
  
     	//$users = DB::table('categories')->where('slug',$category_slug)->paginate(15);
     	
     	//return view('webshop.productlist',['products'=>$categories->products]);
+    }
+    public function getProduct($category_slug,$product_slug,$product_id){
+        $product = Product::with('category')
+        ->where('products.id',$product_id)
+        ->join('categories','categories.id','products.category_id')
+        ->select(['products.id','products.name','products.description','products.price','categories.slug AS category_slug','categories.name AS category_name','products.slug'])->first();
+        return view('webshop.productdetail',['product'=>$product]);
     }
     public function getCart()
     {
