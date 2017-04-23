@@ -8,6 +8,7 @@ use App\Category;
 use App\Product;
 use App\Cart;
 use Session;
+use DB;
 
 class WebshopController extends Controller
 {
@@ -19,10 +20,29 @@ class WebshopController extends Controller
     public function getProducts($category_slug){
     	
     	
-    	$categories = Category::where('slug',$category_slug)->with('products')->first();    	
+    	/*$categories = Category::where('slug',$category_slug)->with('products')->first();   
+       
+        $products = Category::where('slug',$category_slug)->with('products')->paginate(10);
+
+        /*Category::where('slug',$category_slug)->with(['products']=>function($query){
+
+        })*/
+
+        /*$products = Product::with('categories',function($query){
+            $query->where('slug',$category_slug);
+        })->paginate(10);*/
+        $products=DB::table('products')
+            ->join('categories',function($join) use($category_slug){
+                $join->on('products.category_id','=','categories.id')
+                    ->where('categories.slug','=',$category_slug);
+            })->select('products.id','products.name','products.description')->paginate(10);
+
+
+        return view('webshop.productlist',['products'=>$products]);
+ 
+    	//$users = DB::table('categories')->where('slug',$category_slug)->paginate(15);
     	
-    	
-    	return view('webshop.productlist',['products'=>$categories->products]);
+    	//return view('webshop.productlist',['products'=>$categories->products]);
     }
     public function getCart()
     {

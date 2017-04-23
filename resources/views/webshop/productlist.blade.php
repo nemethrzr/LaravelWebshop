@@ -25,14 +25,15 @@
 		                <button type="submit" class="btn btn-info btn-xs">Add to Cart</button>
 		                	{{csrf_field()}}
 	                </form>
-	                <a href="{{route('getaddtocart',['id'=>$product->id])}}" class="btn btn-info btn-xs" role="button">Order</a> 
-	                <a href="#" class="btn btn-default btn-xs" role="button">Add to Cart</a>
+	               
 
 	                </p>
 	            </div>
 	          </div>
 	        </div>
         @endforeach
+
+        {{$products->links()}}
         </div>
 
 
