@@ -38,6 +38,13 @@ Route::post('/postupdatecart','WebshopController@postUpdateCart')->name('postupd
 Route::get('/removefromcart/{id?}','WebshopController@getRemoveFromCart')->name('getremovefromcart');
 //Route::get('/checkout');
 
+
+//megrendelés rész
+
+Route::group(['prefix'=>'order','middleware'=>'auth'],function(){
+	Route::get('/checkout','OrderController@checkout')->name('getcheckout');
+});
+
 // - tartalmi rész
 
 Route::group(['prefix'=>'content'],function(){

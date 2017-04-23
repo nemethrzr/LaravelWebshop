@@ -1,26 +1,15 @@
 @extends('layouts.default')
-@section('title','Kosár')
 
-@section('style')
-<style type="text/css">
-
-    
-</style>
-
-@endsection
 @section('content')
-
-
 <div class="container col-md-12">
         <ol class="breadcrumb">
             <li><a href="{{ route('webshop') }}">Cart</a></li>
-            <li class="active">Checkout</li>
+            <li class="active"><a href="{{ route('getcheckout') }}">Checkout</a></li>
             <li class="active">Finish</li>
             
         </ol>
     </div>
-
-
+<h2>Checkout</h2>
 
 
 <div class="container">
@@ -52,8 +41,7 @@
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="number" class="qty form-control" value="{{ $product['qty'] }}">
-                        <input type="hidden" class="id form-control" value="{{ $product['item']['id'] }}">
+                        <strong>{{ $product['qty'] }}</strong>                        
                         </td>
                         <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['item']['price'],0,' ',' ') }} Ft</strong></td>
                         <td class="col-sm-1 col-md-1 text-center"><strong class="total"> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
@@ -61,7 +49,7 @@
                         
 
                         
-                        <a href="{{route('getremovefromcart',['id'=>$product['item']['id']])}}" class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span>Remove</a>
+                        
                         </td>
                     </tr>
 
@@ -91,12 +79,62 @@
                         <td class="text-right"><h3><strong id="total">{{number_format($products->totalPrice+$products->shipping,0,' ',' ')}} Ft</strong></h3></td>
                     </tr>
                     <tr>
+                    	
+
+<td>
+<form>
+<div class="form-group">
+	<h2>Szállítási cím:</h2>
+	<div class="form-group">
+		<label for="zipcode">Írányítószám</label>
+		<input class="form-control" type="number" name="zipcode" id="zipcode">
+	</div>
+	<div class="form-group">
+		<label for="city">Város</label>
+		<input class="form-control" type="text" name="city" id="city">
+	</div>
+	<div>
+		<label for="street">Utca</label>
+		<input class="form-control"  type="text" name="street" id="street">
+	</div>
+	<div>
+		<label for="streetnumber">Házszám</label>
+		<input class="form-control"  type="text" name="streetnumber" id="streetnumber">
+	</div>
+</div>
+
+<div class="form-group">
+	<h2>Számlázási cím:</h2>
+	<div class="form-group">
+		<label for="zipcode">Írányítószám</label>
+		<input class="form-control" type="number" name="zipcode" id="zipcode">
+	</div>
+	<div class="form-group">
+		<label for="city">Város</label>
+		<input class="form-control" type="text" name="city" id="city">
+	</div>
+	<div>
+		<label for="street">Utca</label>
+		<input class="form-control"  type="text" name="street" id="street">
+	</div>
+	<div>
+		<label for="streetnumber">Házszám</label>
+		<input class="form-control"  type="text" name="streetnumber" id="streetnumber">
+	</div>
+</div>
+
+</form>
+
+</td>
+
+                    </tr>
+                    <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td>
                         
-                        <a class="btn btn-default" href="{{url('/webshop')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping</a>
+                        <a class="btn btn-default" href="{{route('getcart')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Back to Cart</a>
                         </td>
                         <td>
                         <a class="btn btn-success" href="{{route('getcheckout')}}">
@@ -108,58 +146,9 @@
                 </tbody>
             </table>
         </div>
+
+
+
     </div>
 </div>
-@endsection
-
-
-
-@section('scripts')
-
-<script type="text/javascript">
-    var url    = "{{route('postupdatecart')}}";
-    var _token = "{{csrf_token()}}";
-    $('.qty').on('change',function(event){
-        var qty = $(this).val();
-        var id  = $(this).siblings('.id').val();
-        console.log('changed the Quantity');
-        console.log('the new qty:'+qty);
-        console.log('the requested url:'+url);
-
-
-        $.ajax({
-            method: 'POST',
-            url: url ,
-            data: {'_token':_token,'qty':qty,'id':id }
-
-        }).done(function(msg){
-            console.log('sikeres ajax küldés'+msg);
-            console.log('qty: '+msg.totalPrice);
-            console.log('items: '+msg.items);
-            updateCart(msg);
-        });
-
-
-    });
-
-    function updateCart(cart) {
-        $('#subtotal').html(cart.totalPrice);
-        $('#shipping').html(cart.shipping);
-        $('#total').html(cart.totalPrice+cart.shipping);
-        $('#cartbadge').html(cart.totalQty);
-        
-
-        $.each(cart.items, function (index, value) {
-            console.log(index);
-            console.log(value.item.id);
-            $('#'+index+' .total').html(value.price);
-        });
-    }
-
-
-</script>
-
-
-
-
 @endsection

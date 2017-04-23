@@ -25,8 +25,14 @@ class UserController extends Controller
     }
     public function postSignUp(UserSignUpRequest $request){
 		$user = new User();    	
-    	$user->fill($request->all());
-    	$user->password = bcrypt($user->password);
+    	//$user->fill($request->all());
+    	
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        
+        $user->password = bcrypt($request->input('password'));
+
     	if($user->save()){
     		
 
