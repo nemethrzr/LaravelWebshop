@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('title','Profilom')
 
 @section('content')
 <div class="row">
@@ -71,7 +71,7 @@
 </div>
 </form>
 
-	
+
 </div>
 
 @endsection
