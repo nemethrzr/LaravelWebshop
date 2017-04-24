@@ -15,13 +15,14 @@ class CreateAddressesTable extends Migration
     {
          Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('zipcode')->nullable();            
-            $table->string('city')->nullable();
-            $table->string('street')->nullable();
-            $table->integer('street_number')->nullable();
+            $table->integer('zipcode');            
+            $table->string('city');
+            $table->string('street');
+            $table->integer('street_number');
             $table->enum('type', array('billing', 'shipping'));
             $table->integer('user_id')->unsigned();
             $table->timestamps();
+            $table->unique(['user_id','type']);//ugynat a type és user_id nem szerepelhet
         });
     }
 

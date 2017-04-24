@@ -78,77 +78,106 @@
                         <td><h3>Total</h3></td>
                         <td class="text-right"><h3><strong id="total">{{number_format($products->totalPrice+$products->shipping,0,' ',' ')}} Ft</strong></h3></td>
                     </tr>
-                    <tr>
-                    	
+                   
 
-<td>
-<form>
-<div class="form-group">
-	<h2>Szállítási cím:</h2>
-	<div class="form-group">
-		<label for="zipcode">Írányítószám</label>
-		<input class="form-control" type="number" name="zipcode" id="zipcode">
-	</div>
-	<div class="form-group">
-		<label for="city">Város</label>
-		<input class="form-control" type="text" name="city" id="city">
-	</div>
-	<div>
-		<label for="street">Utca</label>
-		<input class="form-control"  type="text" name="street" id="street">
-	</div>
-	<div>
-		<label for="streetnumber">Házszám</label>
-		<input class="form-control"  type="text" name="streetnumber" id="streetnumber">
-	</div>
-</div>
 
-<div class="form-group">
-	<h2>Számlázási cím:</h2>
-	<div class="form-group">
-		<label for="zipcode">Írányítószám</label>
-		<input class="form-control" type="number" name="zipcode" id="zipcode">
-	</div>
-	<div class="form-group">
-		<label for="city">Város</label>
-		<input class="form-control" type="text" name="city" id="city">
-	</div>
-	<div>
-		<label for="street">Utca</label>
-		<input class="form-control"  type="text" name="street" id="street">
-	</div>
-	<div>
-		<label for="streetnumber">Házszám</label>
-		<input class="form-control"  type="text" name="streetnumber" id="streetnumber">
-	</div>
-</div>
 
-</form>
 
-</td>
-
-                    </tr>
-                    <tr>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>   </td>
-                        <td>
-                        
-                        <a class="btn btn-default" href="{{route('getcart')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Back to Cart</a>
-                        </td>
-                        <td>
-                        <a class="btn btn-success" href="{{route('getcheckout')}}">
-                            Checkout <span class="glyphicon glyphicon-play"></span>
-                        </a>
-                        <a href="{{route('getremovefromcart')}}">Remove all</a>
-                        </td>
-                    </tr>
+                   
                 </tbody>
             </table>
         </div>
 
 
+        <form method="post" action="{{route('postcheckout')}}">
+<div class="form-group">
+    <h2>Szállítási cím:</h2>
+    <div class="form-group">
+        <label for="shipping_zipcode">Írányítószám</label>
+        <input class="form-control" type="number" name="shipping_zipcode" id="shipping_zipcode" value="{{ isset($shipping_address->zipcode) ? $shipping_address->zipcode : null  }}">
+    </div>
+    <div class="form-group">
+        <label for="shipping_city">Város</label>
+        <input class="form-control" type="text" name="shipping_city" id="shipping_city" value="{{ isset($shipping_address->city) ? $shipping_address->city : null  }}">
+    </div>
+    <div>
+        <label for="shipping_street">Utca</label>
+        <input class="form-control"  type="text" name="shipping_street" id="shipping_street" value="{{ isset($shipping_address->street) ? $shipping_address->street : null  }}">
+    </div>
+    <div>
+        <label for="shipping_streetnumber">Házszám</label>
+        <input class="form-control"  type="text" name="shipping_streetnumber" id="shipping_streetnumber" value="{{ isset($shipping_address->street_number) ? $shipping_address->street_number : null  }}">
+    </div>
+</div>
+
+<p><input type="checkbox" name="equal" id="equal">A szállítási is számlázási cím megegyezik</p>
+<div class="form-group">
+    <h2>Számlázási cím:</h2>
+    <div class="form-group">
+        <label for="billing_zipcode">Írányítószám</label>
+        <input class="form-control" type="number" name="billing_zipcode" id="billing_zipcode" value="{{ isset($billing_address->zipcode) ? $shipping_address->zipcode : null  }}">
+    </div>
+    <div class="form-group">
+        <label for="billing_city">Város</label>
+        <input class="form-control" type="text" name="billing_city" id="billing_city" value="{{ isset($billing_address->city) ? $shipping_address->city : null  }}">
+    </div>
+    <div>
+        <label for="billing_street">Utca</label>
+        <input class="form-control"  type="text" name="billing_street" id="billing_street" value="{{ isset($billing_address->street) ? $shipping_address->street : null  }}">
+    </div>
+    <div>
+        <label for="billing_streetnumber">Házszám</label>
+        <input class="form-control"  type="text" name="billing_streetnumber" id="billing_streetnumber" value="{{ isset($billing_address->street_number) ? $shipping_address->street_number : null  }}">
+    </div>
+</div>
+
+
+        {{csrf_field()}}
+
+
+
+                        <a class="btn btn-default" href="{{route('getcart')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Back to Cart</a>
+                        </td>
+                        <td>
+                        <button type="submit" class="btn btn-success"">
+                            Checkout <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                        
+</form>
+
 
     </div>
 </div>
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+    
+    $('#equal').on('change',function(evenet){
+        console.log('checbox megváltozva');
+        if(this.checked){
+            console.log('checkolva van');
+            $('#shipping_zipcode').bind('keyup change',function(){
+                console.log('event lefutottt');
+                $('#billing_zipcode').attr('value',$(this).val());
+            });
+            $('#shipping_street').bind('keyup change',function(){
+                console.log('shipping_street event lefutottt');
+                $('#billing_street').attr('value',$(this).val());
+            });
+            $('#shipping_streetnumber').bind('keyup change',function(){
+                console.log('event lefutottt');
+                $('#billing_streetnumber').attr('value',$(this).val());
+            });
+            $('#shipping_city').bind('keyup change',function(){
+                console.log('event lefutottt');
+                $('#billing_city').attr('value',$(this).val());
+            });
+        }else{
+            $('#shipping_city, #shipping_zipcode, shipping_street, shipping_streetnumber').unbind();
+            console.log('unbinding evenets');
+        }
+    });
+</script>
 @endsection

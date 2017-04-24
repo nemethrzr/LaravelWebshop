@@ -11,9 +11,10 @@ class ContentController extends Controller
 	public function index()
 	{
 		$content = new Content();
-		$data = $content->where('sort',1)->first();
-		//$data = $content->where('id',1)->first();
+		
+		$data = $content->where('sort',$content->min('sort'))->first();
 		//var_dump($data);
+		
 		return view('content.show',['content'=>$data]);
 	}
     public function show($content_slug)

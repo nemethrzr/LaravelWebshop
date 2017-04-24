@@ -42,7 +42,8 @@ Route::get('/removefromcart/{id?}','WebshopController@getRemoveFromCart')->name(
 //megrendelés rész
 
 Route::group(['prefix'=>'order','middleware'=>'auth'],function(){
-	Route::get('/checkout','OrderController@checkout')->name('getcheckout');
+	Route::get('/checkout','OrderController@getCheckout')->name('getcheckout');
+	Route::post('/checkout','OrderController@postCheckout')->name('postcheckout');
 });
 
 // - tartalmi rész
@@ -63,7 +64,7 @@ Route::group(['middleware'=>'web'],function(){
 
 Route::group(['middleware'=>'auth'],function(){
 	Route::get('/account','UserController@getAccount')->name('getaccount');
-	Route::post('/updateaccount','UserController@updateAccount')->name('postaccount');
+	Route::post('/updateaccount','UserController@postAccount')->name('postaccount');
 });
 
 Auth::routes();
