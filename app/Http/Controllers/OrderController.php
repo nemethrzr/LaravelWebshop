@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function getCheckout($value='')
 	{
 		$addresses = Address::where('user_id',Auth::user()->id)->get();
-
+		dd($addresses);
 		$shipping_address = 0;
 		$billing_address  = 0;
 		if($addresses){		
@@ -29,15 +29,45 @@ class OrderController extends Controller
     	if(Session::has('cart')){
             $products = Session::get('cart');
             //dd(response()->json($products));
-            return view('webshop.checkout',['products'=>$products,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address]);
+            return view('webshop.checkout',['products'=>$products,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address,'address'=>$addresses]);
         }
 
 
     	return redirect()->route('webshop');
     }
-    public function postCheckout(AddressRequest $request)
+    public function postCheckout(Request $request)
     {
+    	
 
+		//$billing_address  = Address::where(['user_id'=>Auth::user()->id,'type'=>'billing'])->get();
+		$billing_address  = Address::where('users_id',Auth::user()->id)
+							->where('type','billing')->get();
+
+
+
+
+		$shipping_address = Address::where('user_id',Auth::user()->id)->where('type','shipping')->get();
+
+
+
+
+
+		/*if($billing_address && $shipping_address){
+
+			$billing_address->zipcode       = $request->input('billing_zipcode');
+	    	$billing_address->city          = $request->input('billing_city');
+	    	$billing_address->street        = $request->input('billing_street');
+	    	$billing_address->street_number = $request->input('billing_streetnumber');
+	    	$billing_address->update();	    	
+
+    		$shipping_address->zipcode       = $request->input('shipping_zipcode');
+	    	$shipping_address->city          = $request->input('shipping_city');
+	    	$shipping_address->street        = $request->input('shipping_street');
+	    	$shipping_address->street_number = $request->input('shipping_streetnumber');
+	    	//Address::create($shipping_address);
+	    	//$shipping_address->save();
+	    	return redirect()->back()->with('message','Sikeresen módosítotad az adatokat');
+		}*/
 
     	//cím lementése
     	$address = new Address();

@@ -90,44 +90,27 @@
 
 
         <form method="post" action="{{route('postcheckout')}}">
-<div class="form-group">
-    <h2>Szállítási cím:</h2>
-    <div class="form-group">
-        <label for="shipping_zipcode">Írányítószám</label>
-        <input class="form-control" type="number" name="shipping_zipcode" id="shipping_zipcode" value="{{ isset($shipping_address->zipcode) ? $shipping_address->zipcode : null  }}">
-    </div>
-    <div class="form-group">
-        <label for="shipping_city">Város</label>
-        <input class="form-control" type="text" name="shipping_city" id="shipping_city" value="{{ isset($shipping_address->city) ? $shipping_address->city : null  }}">
-    </div>
-    <div>
-        <label for="shipping_street">Utca</label>
-        <input class="form-control"  type="text" name="shipping_street" id="shipping_street" value="{{ isset($shipping_address->street) ? $shipping_address->street : null  }}">
-    </div>
-    <div>
-        <label for="shipping_streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="shipping_streetnumber" id="shipping_streetnumber" value="{{ isset($shipping_address->street_number) ? $shipping_address->street_number : null  }}">
-    </div>
-</div>
+@include('partials.address',$address[0])
+@include('partials.address',$address[1])
 
 <p><input type="checkbox" name="equal" id="equal">A szállítási is számlázási cím megegyezik</p>
 <div class="form-group">
     <h2>Számlázási cím:</h2>
     <div class="form-group">
-        <label for="billing_zipcode">Írányítószám</label>
-        <input class="form-control" type="number" name="billing_zipcode" id="billing_zipcode" value="{{ isset($billing_address->zipcode) ? $shipping_address->zipcode : null  }}">
+        <label for="zipcode">Írányítószám</label>
+        <input class="form-control" type="number" name="zipcode[]" id="zipcode" value="{{ isset($billing_address->zipcode) ? $shipping_address->zipcode : null  }}">
     </div>
     <div class="form-group">
-        <label for="billing_city">Város</label>
-        <input class="form-control" type="text" name="billing_city" id="billing_city" value="{{ isset($billing_address->city) ? $shipping_address->city : null  }}">
+        <label for="city">Város</label>
+        <input class="form-control" type="text" name="city[]" id="city" value="{{ isset($billing_address->city) ? $shipping_address->city : null  }}">
     </div>
     <div>
-        <label for="billing_street">Utca</label>
-        <input class="form-control"  type="text" name="billing_street" id="billing_street" value="{{ isset($billing_address->street) ? $shipping_address->street : null  }}">
+        <label for="street">Utca</label>
+        <input class="form-control"  type="text" name="street[]" id="street" value="{{ isset($billing_address->street) ? $shipping_address->street : null  }}">
     </div>
     <div>
-        <label for="billing_streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="billing_streetnumber" id="billing_streetnumber" value="{{ isset($billing_address->street_number) ? $shipping_address->street_number : null  }}">
+        <label for="streetnumber">Házszám</label>
+        <input class="form-control"  type="text" name="streetnumber[]" id="streetnumber" value="{{ isset($billing_address->street_number) ? $shipping_address->street_number : null  }}">
     </div>
 </div>
 
