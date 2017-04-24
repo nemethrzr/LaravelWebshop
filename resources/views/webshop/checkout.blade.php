@@ -90,29 +90,10 @@
 
 
         <form method="post" action="{{route('postcheckout')}}">
-@include('partials.address',$address[0])
-@include('partials.address',$address[1])
+@include('partials.address',$addresses)
 
-<p><input type="checkbox" name="equal" id="equal">A szállítási is számlázási cím megegyezik</p>
-<div class="form-group">
-    <h2>Számlázási cím:</h2>
-    <div class="form-group">
-        <label for="zipcode">Írányítószám</label>
-        <input class="form-control" type="number" name="zipcode[]" id="zipcode" value="{{ isset($billing_address->zipcode) ? $shipping_address->zipcode : null  }}">
-    </div>
-    <div class="form-group">
-        <label for="city">Város</label>
-        <input class="form-control" type="text" name="city[]" id="city" value="{{ isset($billing_address->city) ? $shipping_address->city : null  }}">
-    </div>
-    <div>
-        <label for="street">Utca</label>
-        <input class="form-control"  type="text" name="street[]" id="street" value="{{ isset($billing_address->street) ? $shipping_address->street : null  }}">
-    </div>
-    <div>
-        <label for="streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="streetnumber[]" id="streetnumber" value="{{ isset($billing_address->street_number) ? $shipping_address->street_number : null  }}">
-    </div>
-</div>
+
+
 
 
         {{csrf_field()}}

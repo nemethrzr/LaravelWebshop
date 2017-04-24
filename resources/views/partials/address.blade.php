@@ -1,6 +1,11 @@
+
+
+@forelse($addresses as $address)
+
 <div class="form-group">
-    <h2>@if(isset($address) and $address->type=='shipping') Szállítási cím: @else Számlázási cím @endif</h2>
-    {{dd($address)}}
+    <h1>cím selector</h1>
+    <h2>@if($address->type == 'shipping') Szállítási cím: @else Számlázási cím @endif</h2>
+    
     <div class="form-group">
         <label for="zipcode">Írányítószám</label>
         <input class="form-control" type="number" name="zipcode[]" id="zipcode" value="{{ isset($address->zipcode) ? $address->zipcode : null  }}">
@@ -14,11 +19,17 @@
         <input class="form-control"  type="text" name="street[]" id="street" value="{{ isset($address->street) ? $address->street : null  }}">
     </div>
     <div>
-        <label for="streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="streetnumber[]" id="streetnumber" value="{{ isset($address->street_number) ? $address->street_number : null  }}">
+        <label for="street_number">Házszám</label>
+        <input class="form-control"  type="text" name="street_number[]" id="street_number" value="{{ isset($address->street_number) ? $address->street_number : null  }}">
         <input class="form-control"  type="hidden" name="type[]" id="type" value="{{ isset($address->type) ? $address->type : null  }}">
     </div>
 </div>
+
+
+
+@empty
+
+@endforelse
 
 
 

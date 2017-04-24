@@ -13,7 +13,7 @@ class OrderController extends Controller
     public function getCheckout($value='')
 	{
 		$addresses = Address::where('user_id',Auth::user()->id)->get();
-		dd($addresses);
+	
 		$shipping_address = 0;
 		$billing_address  = 0;
 		if($addresses){		
@@ -29,18 +29,43 @@ class OrderController extends Controller
     	if(Session::has('cart')){
             $products = Session::get('cart');
             //dd(response()->json($products));
-            return view('webshop.checkout',['products'=>$products,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address,'address'=>$addresses]);
+            return view('webshop.checkout',['products'=>$products,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address,'addresses'=>$addresses]);
         }
 
 
     	return redirect()->route('webshop');
     }
+    private function AddressInput($request){
+    	$billing_address  = array();
+    	$shipping_address = array();
+    	foreach ($request as $key => $value) {
+    		
+    		$billing_address[$key]  = $value[1];
+
+			$shipping_address[$key] = $value[0];
+    	}
+    	unset($billing_address['_token']);
+    	$billing_address['user_id'] = Auth::user()->id;
+
+    	unset($shipping_address['_token']);
+    	$shipping_address['user_id'] = Auth::user()->id;
+    	$return[0]=$shipping_address;
+    	$return[1]=$billing_address;
+    	return $return;
+    }
     public function postCheckout(Request $request)
     {
+    	//dd($this->AddressInput($request->all()));
+    	$address = $this->AddressInput($request->all());
+    	Address::updateOrCreate(['user_id' => Auth::user()->id,'type'=>'billing'],$address[0]);
+    	Address::updateOrCreate(['user_id' => Auth::user()->id,'type'=>'shipping'],$address[1]);
+
     	
 
+
+
 		//$billing_address  = Address::where(['user_id'=>Auth::user()->id,'type'=>'billing'])->get();
-		$billing_address  = Address::where('users_id',Auth::user()->id)
+		/*$billing_address  = Address::where('users_id',Auth::user()->id)
 							->where('type','billing')->get();
 
 
@@ -70,7 +95,7 @@ class OrderController extends Controller
 		}*/
 
     	//cím lementése
-    	$address = new Address();
+    	/*$address = new Address();
 
     	$address->zipcode       = $request->input('shipping_zipcode');
     	$address->city          = $request->input('shipping_city');
@@ -92,7 +117,7 @@ class OrderController extends Controller
     	if($billing_address->save()){
     		return redirect()->back()->with('message','Sikeres');
     	}
-
+*/
     	return redirect()->back();
     }
 }
