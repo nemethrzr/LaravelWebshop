@@ -97,7 +97,7 @@ class UserController extends Controller
         session('product_id','12');
         $session_product_id = session('product_id');
         $id = session('product_id');
-        return view('user.show',['user'=>$user,'session_product_id'=>$session_product_id,'id'=>$id,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address]);
+        return view('user.show',['user'=>$user,'session_product_id'=>$session_product_id,'id'=>$id,'addresses'=>$addresses,'billing_address'=>$billing_address]);
     }
     public function postAccount(AddressRequest $request)
     {

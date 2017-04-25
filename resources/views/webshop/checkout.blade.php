@@ -1,5 +1,12 @@
 @extends('layouts.default')
 
+@section('style')
+    <style type="text/css">
+        
+       
+    </style>
+@endsection
+
 @section('content')
 <div class="container col-md-12">
         <ol class="breadcrumb">
@@ -89,70 +96,110 @@
         </div>
 
 
-        <form method="post" action="{{route('postcheckout')}}">
-<div class="form-group">
-    <h2>Szállítási cím:</h2>
+<form method="post" action="{{route('postcheckout')}}">
+
+
+
+    @include('partials.address')
+
     <div class="form-group">
-        <label for="shipping_zipcode">Írányítószám</label>
-        <input class="form-control" type="number" name="shipping_zipcode" id="shipping_zipcode" value="{{ isset($shipping_address->zipcode) ? $shipping_address->zipcode : null  }}">
+        
+        @include('webshop.checkout.shippingmethod')
+
+
     </div>
+
+    <div class="form-group">    
+        @include('webshop.checkout.paymentmethod')
+    </div>
+
     <div class="form-group">
-        <label for="shipping_city">Város</label>
-        <input class="form-control" type="text" name="shipping_city" id="shipping_city" value="{{ isset($shipping_address->city) ? $shipping_address->city : null  }}">
+    <h2>Összesen</h2>
+        <strong id="total">{{number_format($products->totalPrice+$products->shipping,0,' ',' ')}} Ft</strong>
     </div>
+
     <div>
-        <label for="shipping_street">Utca</label>
-        <input class="form-control"  type="text" name="shipping_street" id="shipping_street" value="{{ isset($shipping_address->street) ? $shipping_address->street : null  }}">
-    </div>
-    <div>
-        <label for="shipping_streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="shipping_streetnumber" id="shipping_streetnumber" value="{{ isset($shipping_address->street_number) ? $shipping_address->street_number : null  }}">
-    </div>
-</div>
+        <a class="btn btn-default" href="{{route('getcart')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Back to Cart</a>
 
-<p><input type="checkbox" name="equal" id="equal">A szállítási is számlázási cím megegyezik</p>
-<div class="form-group">
-    <h2>Számlázási cím:</h2>
-    <div class="form-group">
-        <label for="billing_zipcode">Írányítószám</label>
-        <input class="form-control" type="number" name="billing_zipcode" id="billing_zipcode" value="{{ isset($billing_address->zipcode) ? $shipping_address->zipcode : null  }}">
+         {{csrf_field()}}
+        <button type="submit" class="btn btn-success"">
+            Order <span class="glyphicon glyphicon-play"></span>
+        </button>
     </div>
-    <div class="form-group">
-        <label for="billing_city">Város</label>
-        <input class="form-control" type="text" name="billing_city" id="billing_city" value="{{ isset($billing_address->city) ? $shipping_address->city : null  }}">
-    </div>
-    <div>
-        <label for="billing_street">Utca</label>
-        <input class="form-control"  type="text" name="billing_street" id="billing_street" value="{{ isset($billing_address->street) ? $shipping_address->street : null  }}">
-    </div>
-    <div>
-        <label for="billing_streetnumber">Házszám</label>
-        <input class="form-control"  type="text" name="billing_streetnumber" id="billing_streetnumber" value="{{ isset($billing_address->street_number) ? $shipping_address->street_number : null  }}">
-    </div>
-</div>
-
-
-        {{csrf_field()}}
-
-
-
-                        <a class="btn btn-default" href="{{route('getcart')}}"><span class="glyphicon glyphicon-shopping-cart"></span> Back to Cart</a>
-                        </td>
-                        <td>
-                        <button type="submit" class="btn btn-success"">
-                            Checkout <span class="glyphicon glyphicon-play"></span>
-                        </button>
                         
 </form>
 
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection
 
 
 @section('scripts')
 <script type="text/javascript">
+
+
+
+//$('#addressForm').hide();
+
+
+$('#newShipping').on('click',function(){
+    $('#addressForm #type').attr('value','shipping');
+    $('#shippingAddressForm').html($('#addressForm').toggle());
+    
+});
+
+$('#newBilling').on('click',function(){
+    $('#addressForm #type').attr('value','billing');
+    $('#billingAddressForm').html($('#addressForm').toggle());
+    
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     $('#equal').on('change',function(evenet){
         console.log('checbox megváltozva');
