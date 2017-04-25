@@ -10,7 +10,10 @@ class Cart
 	public $totalPrice = 0;
 	public $shipping   = 1500;
 	public $currency   = ' Ft';
-	public $reception  = [''];
+	public $shipping_method_id  	= 0;
+	public $payment_type_id			= 0;
+	public $billing_address_id  	= 0;
+	public $shipping_address_id  	= 0;
 
 	public function __construct($oldCart)
 	{
