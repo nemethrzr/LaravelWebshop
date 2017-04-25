@@ -79,14 +79,39 @@ class OrderController extends Controller
             $cart->shipping_address_id  = $request->input('shipping_address_id');
             $cart->billing_address_id   = $request->input('billing_address_id');
             $request->session()->put('cart',$cart);
-
+            //dd($cart);
             if(true){//ha minden feltétel igaz lesz, tehát megfelelő és létező address_id,payment_type_id-k ...stb ezeket majd még valahol, vagy itt de elllenőrizni kell majd
 
+                //végig megyünk a 
+                $order = new Order();
+                $order->user_id =Auth::user()->id;
+                $order->status = 'feladva';
+                $order->save();
+
+                //$order->products()->save($order_products);
+                $order_products = new OrderProduct();
+                foreach ($cart->items as $item) {
 
 
+                    $order->order_products()->save(new OrderProduct([
+                        'qty'=>$item['qty'],
+                        'price'=>$item['price'],
+                        'product_id'=>$item['item']['id'],
+                        'pricewithtax'=>$item['price'],
+                        //'order_id'=>$order->id
+                    ]));
 
+                    /*$order_products->qty            = $item['qty'];
+                    $order_products->price          = $item['price'];
+                    $order_products->product_id     = $item['item']['id'];
+                    $order_products->pricewithtax   = $item['price'];
+                    $order_products->order_id       = $order->id;
+                    $order->order_products()->save($order_products);*/
+                }
 
-                return redirect()->back();
+                Session::remove('cart');
+
+                return view('webshop.checkout.success',['cart'=>$cart]);
             }
             dd($cart);
 
@@ -97,6 +122,6 @@ class OrderController extends Controller
 
         
 
-    	//return redirect()->back();
+    	return redirect()->back();
     }
 }
