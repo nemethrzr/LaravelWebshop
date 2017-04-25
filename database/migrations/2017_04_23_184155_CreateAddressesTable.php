@@ -19,10 +19,11 @@ class CreateAddressesTable extends Migration
             $table->string('city');
             $table->string('street');
             $table->integer('street_number');
+            //$table->integer('phone_number');
             $table->enum('type', array('billing', 'shipping'));
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->unique(['user_id','type']);//ugynat a type és user_id nem szerepelhet
+            //$table->unique(['user_id','type']);//ugynat a type és user_id nem szerepelhet
         });
     }
 

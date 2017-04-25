@@ -1,6 +1,6 @@
 
 
-@forelse($addresses as $address)
+@foreach($addresses as $address)
 
 <div class="form-group">
     <h1>cím selector</h1>
@@ -24,12 +24,7 @@
         <input class="form-control"  type="hidden" name="type[]" id="type" value="{{ isset($address->type) ? $address->type : null  }}">
     </div>
 </div>
-
-
-
-@empty
-
-@endforelse
+@endforeach
 
 
 

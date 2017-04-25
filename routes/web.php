@@ -65,6 +65,15 @@ Route::group(['middleware'=>'web'],function(){
 Route::group(['middleware'=>'auth'],function(){
 	Route::get('/account','UserController@getAccount')->name('getaccount');
 	Route::post('/updateaccount','UserController@postAccount')->name('postaccount');
+
+	Route::get('/getaddress','AddressController@getAddress')->name('getaddress');//
+
+	Route::get('/deleteaddress/{address_id}','AddressController@getDeleteAddress')->name('getdeleteaddress');//
+
+	Route::get('/updateaddress','AddressController@getUpdateAddress')->name('getupdateaddress');//
+
+	Route::post('/postaddress','AddressController@postAddress')->name('postaddress');
+
 });
 
 Auth::routes();

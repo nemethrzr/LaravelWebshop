@@ -6,13 +6,21 @@ use Illuminate\Http\Request;
 use Session;
 use App\Http\Requests\AddressRequest;
 use App\Address;
+use App\PaymentType;
+use App\ShippingMethod;
 use Auth;
 
 class OrderController extends Controller
 {
     public function getCheckout($value='')
 	{
-		$addresses = Address::where('user_id',Auth::user()->id)->get();
+		/*$addresses = Address::where('user_id',Auth::user()->id)->get();
+		if(!$addresses){
+			$addresses[0] = new Address();
+			$addresses[0]->type = 'billing';
+			$addresses[1] = new Address();
+			$addresses[1]->type = 'shipping';
+		}
 	
 		$shipping_address = 0;
 		$billing_address  = 0;
@@ -24,12 +32,16 @@ class OrderController extends Controller
 					$billing_address = $item;
 				}
 			}
-		}
+		}*/
+
+		$addresses      = Address::where('user_id',Auth::user()->id)->get();
+        $paymenttypes   = PaymentType::all();
+        $shippingmethods= ShippingMethod::all();
 
     	if(Session::has('cart')){
             $products = Session::get('cart');
             //dd(response()->json($products));
-            return view('webshop.checkout',['products'=>$products,'shipping_address'=>$shipping_address,'billing_address'=>$billing_address,'addresses'=>$addresses]);
+            return view('webshop.checkout',['products'=>$products,'addresses'=>$addresses,'paymenttypes'=>$paymenttypes,'shippingmethods'=>$shippingmethods]);
         }
 
 
