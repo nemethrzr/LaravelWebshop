@@ -73,6 +73,8 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('/updateaddress','AddressController@getUpdateAddress')->name('getupdateaddress');//
 
 	Route::post('/postaddress','AddressController@postAddress')->name('postaddress');
+	
+	Route::post('/changepassword','UserController@postChangePassword')->name('postchangepassword');
 
 });
 

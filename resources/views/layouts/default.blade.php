@@ -39,6 +39,7 @@
 		@endforeach
 
 	@endif
+	
 
 
 	@yield('content')

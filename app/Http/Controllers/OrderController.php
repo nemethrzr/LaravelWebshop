@@ -86,6 +86,10 @@ class OrderController extends Controller
                 $order = new Order();
                 $order->user_id =Auth::user()->id;
                 $order->status = 'feladva';
+                $order->payment_type_id     = $request->input('payment_type_id');
+                $order->shipping_method_id  = $request->input('shipping_method_id');
+                $order->shipping_address_id = $request->input('shipping_address_id');
+                $order->billing_address_id  = $request->input('billing_address_id');
                 $order->save();
 
                 //$order->products()->save($order_products);

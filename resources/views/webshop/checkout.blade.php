@@ -1,4 +1,5 @@
 @extends('layouts.default')
+@section('title','Megrendelés')
 
 @section('style')
     <style type="text/css">
@@ -128,6 +129,8 @@
     </div>
                         
 </form>
+
+@include('partials.addressForm')
 
 
     </div>

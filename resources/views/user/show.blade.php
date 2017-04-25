@@ -15,23 +15,29 @@
 		<div><strong>Email:</strong> {{$user->email}}</div>	
 
 		
-		<div class="panel panel-default">
+		<div class="panel panel-default">			
 	      <div class="panel-heading">Jelszó megváltoztatása</div>
 	      <div class="panel-body">
-			<form method="post">
+			<form method="post" action="{{route('postchangepassword')}}">
 				<div class="form-group">
 					<label for="oldpassword">Régi jelszó:</label>
 					<input type="password" name="oldpassword" class="form-control">
 				</div>
 				<div class="form-group">
-					<label for="oldpassword">Új jelszó: </label>
+					<label for="password">Új jelszó: </label>
 					<input type="password" name="password" class="form-control"></div>
 				<div class="form-group">
-					<label for="oldpassword">Új jelszó mégegyszer:</label>
+					<label for="password_confirm">Új jelszó mégegyszer:</label>
 					<input type="password" name="password_confirm" class="form-control">
 				</div>
 				<div class="form-group">
+								{{ csrf_field() }}
 					<button type="submit" class="btn btn-primary">Megváltoztat</button>
+					@if(session()->has('warning'))
+					    <div class="alert alert-warning">
+					        {{ session()->get('warning') }}
+					    </div>
+					@endif
 				</div>
 			</form>
 
@@ -52,7 +58,9 @@
 
 
 
-	@include('partials.address')
+		@include('partials.address')
+
+		@include('partials.addressForm')
 			
 
 
@@ -64,4 +72,24 @@
 		</div>
 	</div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+	
+$('#newShipping').on('click',function(){
+    $('#addressForm #type').attr('value','shipping');
+    $('#shippingAddressForm').html($('#addressForm').toggle());
+    
+});
+
+$('#newBilling').on('click',function(){
+    $('#addressForm #type').attr('value','billing');
+    $('#billingAddressForm').html($('#addressForm').toggle());
+    
+});
+
+
+
+
+</script>
 @endsection

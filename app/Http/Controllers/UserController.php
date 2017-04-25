@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use App\Http\Requests\UserSignUpRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -125,6 +126,27 @@ class UserController extends Controller
             return redirect()->route('getaccount')->with('message','Sikeresen frissítetted az adataidat!');
         }
 
+    }
+    public function postChangePassword(ChangePasswordRequest $request)
+    {
+        //jelszómegváltoztatás
+        $oldpassword = $request['oldpassword'];
+        $newpassword = bcrypt($request['password']);
+
+        $current_password = Auth::user()->password;
+        //dd($oldpassword,$newpassword,Auth::user()->password,Hash::check($oldpassword, $current_password));
+        //dd(Hash::check($oldpassword, $current_password));
+
+        if(Hash::check($oldpassword, $current_password)){
+            
+            $user = User::find(Auth::user()->id);
+            $user->password = $newpassword;
+            $user->save();
+            return redirect()->back()->with('message','Sikeresen megváltoztattad a jelszavadat');
+        }else{
+            
+            return redirect()->back()->with('warning','Nem egyezik meg a megadott jelszó a jelenlegi jelszavaddal!');
+        }
     }
 
 }
