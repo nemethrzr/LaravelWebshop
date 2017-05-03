@@ -90,6 +90,7 @@ class OrderController extends Controller
                 $order->shipping_method_id  = $request->input('shipping_method_id');
                 $order->shipping_address_id = $request->input('shipping_address_id');
                 $order->billing_address_id  = $request->input('billing_address_id');
+                $order->price = $cart->totalPrice;
                 $order->save();
 
                 //$order->products()->save($order_products);
@@ -127,5 +128,11 @@ class OrderController extends Controller
         
 
     	return redirect()->back();
+    }
+
+    public function ShowAll(){
+       // $orders = Order::where('user_id',Auth::user()->id)->paginate(10);
+         $orders = Order::where('user_id',Auth::user()->id)->with('payment_type')->paginate(10);
+        return view('user.order',['orders'=>$orders]);
     }
 }

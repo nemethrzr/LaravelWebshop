@@ -63,5 +63,13 @@ class ContentTableSeeder extends Seeder
     		
     		);
         DB::table('contents')->insert($contents);
+
+        $user=[
+            'first_name'=>'László',
+            'last_name'=>'Németh',            
+            'email'=>'nemeth.rzr@gmail.com',
+            'password'=>bcrypt('nela23th'),
+        ];
+        DB::table('users')->insert($user);
     }
 }

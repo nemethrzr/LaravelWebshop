@@ -76,6 +76,11 @@ Route::group(['middleware'=>'auth'],function(){
 	
 	Route::post('/changepassword','UserController@postChangePassword')->name('postchangepassword');
 
+	Route::group(['prefix'=>'user'],function(){
+		Route::get('/order','OrderController@showAll')->name('getorderall');
+		Route::get('/order/{order_id}','OrderController@show')->name('getorder');
+	});
+
 });
 
 Auth::routes();

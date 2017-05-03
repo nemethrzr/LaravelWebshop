@@ -13,4 +13,10 @@ class Order extends Model
     public function order_products(){
     	return $this->hasMany('App\OrderProduct');
     }
+    public function payment_type(){
+    	return $this->belongsTo('App\PaymentType');
+    }
+    public function shipping_method(){
+    	return $this->belongsTo('App\ShippingMethod');
+    }
 }

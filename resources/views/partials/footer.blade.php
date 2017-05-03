@@ -32,7 +32,7 @@
 			<h4>My Account</h4>
 			<ul>
 				<li><a href="{{route('getaccount')}}">My Account</a></li>
-				<li><a href="typography.html">Order History</a></li>
+				<li><a href="{{route('getorderall')}}">Order History</a></li>
 				<li><a href="typography.html">Wish List</a></li>
 				<li><a href="typography.html">Newsletter</a></li>
 			</ul>

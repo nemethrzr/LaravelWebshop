@@ -2,17 +2,33 @@
 @section('title','Profilom')
 
 @section('content')
+<div class="container col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="{{route('home')}}">Kezdőlap</a></li>
+            <li class="active">Felhasználói adatok</li>            
+            
+            
+        </ol>
+</div>
+
 <div class="row">
 	<div class="col-md-6">
-		<h2>Profilom</h2>
-		<h3>Alap információk:</h3>
-		<p>{{ $session_product_id }}</p>
-		<p>{{ $id }}</p>
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			Profilom Alap információk:
+		</div>
+		<div class="panel-body">
+			<p>{{ $session_product_id }}</p>
+			<p>{{ $id }}</p>
 
-		<div>{{$user->id}}</div>
-		<div><strong>Regisztálás dátuma: </strong>{{$user->created_at}}</div>
-		<div><strong>Név:</strong> {{$user->first_name}} {{$user->last_name}}</div>
-		<div><strong>Email:</strong> {{$user->email}}</div>	
+			<div>{{$user->id}}</div>
+			<div><strong>Regisztálás dátuma: </strong>{{$user->created_at}}</div>
+			<div><strong>Név:</strong> {{$user->first_name}} {{$user->last_name}}</div>
+			<div><strong>Email:</strong> {{$user->email}}</div>	
+		</div>
+	</div>
+		
+		
 
 		
 		<div class="panel panel-default">			
@@ -47,7 +63,19 @@
 
 
 	<div class="col-md-6">
-		<h3>Megrendelések:</h3>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>Megrendelések:</h4>
+			</div>
+			<div class="panel-body">
+				@include('user.partials.order')		
+
+			</div>
+
+		</div>
+		
+
+		
 	</div>
 
 
