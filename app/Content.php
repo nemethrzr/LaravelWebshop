@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Validator;
+
 class Content extends Model
 {
 	protected $fillable = ['menu','description','slug','sort'];
@@ -16,6 +18,13 @@ class Content extends Model
 
 
     public function setSlugAttribute($value){
-    	$this->attributes['slug'] = str_slug($value);
+    	$value = ['slug'=>str_slug($value)];
+    	$validator = Validator::make($value,[
+    		'slug'=>'unique:contents'
+    		]);
+    	if($validator->fails()){
+    		$value['slug'] = $value['slug'].'_'.date('Y_m_d_h_m_s');
+    	}
+    	$this->attributes['slug'] = str_slug($value['slug']);
     }
 }

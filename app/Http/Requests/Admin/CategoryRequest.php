@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContentRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,13 @@ class ContentRequest extends FormRequest
     public function rules()
     {
         return [
-            'menu'=>'required',
-            'slug'=>'unique:contents',
-            'description'=>'required'
+            'name'=>'required'
         ];
     }
-    public function messages($value='')
+    public function messages()
     {
         return [
-            'menu.required'=>'Nem adtad meg a menü nevét',
-            'description.required'=>'Nem lehet üres a tartalmi rész'
+            'name.required'=>'Nem adtad meg a kategória nevét!'
         ];
     }
 }

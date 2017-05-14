@@ -34,7 +34,10 @@ class AdminContentController extends Controller
     		$content->description = $data['description'];
     		$content->save();
     	}else{
-    		Content::updateOrCreate($data);	
+    		if(Content::updateOrCreate($data)){
+    			return redirect()->back();
+    		}	
+    		return redirect()->back()->withErrors(['msg'=>'van van']);
     	}
     	
     	return redirect()->back();

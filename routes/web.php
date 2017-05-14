@@ -106,6 +106,15 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 		Route::get('/create','AdminContentController@getCreate')->name('getcreate_admincontent');
 		Route::post('/create','AdminContentController@postCreate')->name('postcreate_admincontent');
 	});
+//termékek kezelése
+	Route::group(['prefix'=>'products'],function(){
+		Route::get('/','ProductsController@show')->name('getall_adminproduct');
+	});
+	Route::group(['prefix'=>'categories'],function(){
+		Route::post('/create','ProductsController@postUpdateCategory')->name('postcreate_admincategory');
+		Route::get('/update/{category_id}','ProductsController@getUpdateCategory')->name('getupdate_admincategory');
+		Route::get('/delete/{category_id}','ProductsController@getDeleteCategory')->name('getdelete_admincategory');
+	});
 	//belépett admin felhasználóknak
 	Route::group(['middleware'=>'auth'],function(){
 

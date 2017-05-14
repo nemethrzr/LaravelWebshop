@@ -12,7 +12,7 @@
 
 <h2>Tartalmi oldalak:</h2>
 <div class="col-md-6">
-	<table class="table">
+	<table class="table table-hover">
 		<thead>
 			<th>@lang('admin.id')</th>
 			<th>@lang('admin.sort')</th>
@@ -50,16 +50,17 @@
 </div>
 <div class="col-md-6">
 	<h2>@lang('admin.newcontent')</h2>
+	<a href="route('getall_admincontent')" class="btn btn-primary">Új tartalom</a>
 	<form method="post" action="{{route('postcreate_admincontent')}}">
 		<div class="form-group">
 		<input type="hidden" name="id" value="@if(isset($data)) {{$data->id}} @endif"> 
 			<label for="menu">@lang('admin.menu')</label>
-			<input type="text" name="menu" class="form-control" value="@if(isset($data))
+			<input type="text" name="menu" class="form-control" placeholder="Írd be a menüpont nevét" value="@if(isset($data))
 			{{ $data->menu }}
 			@endif">
 		</div>
 		<div class="form-group">
-			<label for="description">@lang('admin.content')</label>
+			<label for="description">@lang('admin.content')</label><p>Másold be vagy írd meg a tartalmat</p>
 			<textarea name="description" class="form-control" rows="10">	
 			@if(isset($data))
 			{{ $data->description }}
@@ -71,9 +72,33 @@
 
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">@lang('admin.create')</button>
+			<button type="reset" class="btn btn-danger">@lang('admin.cancel')</button>
+			
 		</div>
 		{{ csrf_field() }}
 	</form>
 </div>
+<div class="col-md-2">
+	<div class="panel panel-info">
+		<div class="panel-heading">Segítség</div>
+	  <div class="panel-body">
+	    Tipp! A menüpontok sorbarendezéséhez nyomd le a bal egérgombot az adott menüponton és mozgasd a kivánt helyre.
+	  </div>
+	  
+	</div>
+</div>
+
+
+<div class="col-md-2 right">
+	<div class="panel panel-info">
+		<div class="panel-heading">Segítség</div>
+	  <div class="panel-body">
+	    Tipp! Ha meggondoltad magadat és nem akarod módosítani az oldal tartalmát akkor kattints a "Mégse" gombra, ezzel új tartalmat bírsz felvinni
+	  </div>
+	  
+	</div>
+</div>
+
+
 
 @endsection

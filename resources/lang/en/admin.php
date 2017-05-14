@@ -23,7 +23,10 @@ return [
     'edit'=>'Edit',
     'delete'=>'Delete',
     'newcontent'=>'New Content',
-    'create'=>'Create'
+    'create'=>'Create',
+    'cancel'=>'Cancel',
+    'name'=>'Name',
+    'new'=>'New'
    
 
    	

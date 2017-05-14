@@ -13,7 +13,8 @@ navbar.blade.php<!-- Fixed navbar -->
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-          <li><a href="{{route('getall_admincontent')}}">Oldalak</a></li>          
+          <li><a href="{{route('getall_admincontent')}}">Oldalak</a></li>
+          <li><a href="{{route('getall_adminproduct')}}">Termékek</a></li>          
           <li><a href="">Megrendelések</a></li>
           
             <li class="dropdown">
