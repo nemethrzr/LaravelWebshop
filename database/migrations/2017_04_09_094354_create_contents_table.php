@@ -15,8 +15,8 @@ class CreateContentsTable extends Migration
     {
         Schema::create('contents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('menu');
-            $table->string('slug')->unique();
+            $table->string('menu',100);
+            $table->string('slug',100)->unique();
             $table->text('description');
             $table->integer('sort');//menüpont sorszáma
             $table->timestamps();

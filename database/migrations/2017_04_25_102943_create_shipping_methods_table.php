@@ -15,7 +15,7 @@ class CreateShippingMethodsTable extends Migration
     {
         Schema::create('shipping_methods', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name',100);
             $table->integer('price');
             $table->text('description');
             $table->boolean('enabled');
