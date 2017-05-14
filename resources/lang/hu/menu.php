@@ -57,6 +57,6 @@ return [
     'send'=>'Küldés',
     'message'=>'Üzenet',
     'home'=>'Főoldal',
-    ''
+    'back'=>'Vissza'
 
 ];

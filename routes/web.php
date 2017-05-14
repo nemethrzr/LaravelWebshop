@@ -87,6 +87,32 @@ Route::group(['middleware'=>'auth'],function(){
 
 });
 
+
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+	Route::get('/signin','AdminController@getSignIn')->name('getadminsignin');
+	Route::post('/signin','AdminController@postSignIn')->name('postadminsignin');
+	Route::get('/signout','AdminController@getSignOut')->name('getadminsignout');
+
+
+
+
+//menüpontok, tartalmi részek urljei
+	Route::group(['prefix'=>'site'],function(){
+		Route::get('/','AdminContentController@getShowAll')->name('getall_admincontent');
+		Route::get('/{content_id}','AdminContentController@getContent')->name('getsite_admin');
+		Route::get('/delete/{content_id}','AdminContentController@getDelete')->name('getdelete_admincontent');
+		Route::get('/update/{content_id}','AdminContentController@getUpdate')->name('getupdate_admincontent');
+		Route::post('/update/{content_id}','AdminContentController@postUpdate')->name('postupdate_admincontent');
+		Route::get('/create','AdminContentController@getCreate')->name('getcreate_admincontent');
+		Route::post('/create','AdminContentController@postCreate')->name('postcreate_admincontent');
+	});
+	//belépett admin felhasználóknak
+	Route::group(['middleware'=>'auth'],function(){
+
+	});
+
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
