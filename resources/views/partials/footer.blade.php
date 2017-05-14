@@ -3,37 +3,37 @@
 	<div class="row">
 
 		<div class="col-md-3 col-sm-6">
-			<h4>Information</h4>
+			<h4>@lang('menu.information')</h4>
 			<ul>
-				<li><a href="two-column.html">About Us</a></li>
-				<li><a href="typography.html">Delivery Information</a></li>
-				<li><a href="typography.html">Privacy Policy</a></li>
+				<li><a href="two-column.html">@lang('menu.about')</a></li>
+				<li><a href="typography.html">@lang('menu.delivery')</a></li>
+				<li><a href="typography.html">@lang('menu.privacy')</a></li>
 				<li><a href="typography.html">Terms &amp; Conditions</a></li>
 			</ul>
 		</div>
 		<div class="col-md-3 col-sm-6">
-			<h4>Customer Service</h4>
+			<h4>@lang('menu.service')</h4>
 			<ul>
-				<li><a href="contact.html">Contact Us</a></li>
-				<li><a href="typography.html">Returns</a></li>
-				<li><a href="typography.html">Site Map</a></li>
+				<li><a href="{{route('getcontact')}}">@lang('menu.contact')</a></li>
+				<li><a href="typography.html">@lang('menu.returns')</a></li>
+				<li><a href="typography.html">@lang('menu.sitemap')</a></li>
 			</ul>
 		</div>
 		<div class="col-md-3 col-sm-6">
-			<h4>Extras</h4>
+			<h4>@lang('menu.extras')</h4>
 			<ul>
-				<li><a href="typography.html">Brands</a></li>
+				<li><a href="typography.html">@lang('menu.brands')</a></li>
 				<li><a href="typography.html">Gift Vouchers</a></li>
 				<li><a href="typography.html">Affiliates</a></li>
 				<li><a href="typography.html">Specials</a></li>
 			</ul>
 		</div>
 		<div class="col-md-3 col-sm-6">
-			<h4>My Account</h4>
+			<h4>@lang('menu.account')</h4>
 			<ul>
-				<li><a href="{{route('getaccount')}}">My Account</a></li>
-				<li><a href="{{route('getorderall')}}">Order History</a></li>
-				<li><a href="typography.html">Wish List</a></li>
+				<li><a href="{{route('getaccount')}}">@lang('menu.account')</a></li>
+				<li><a href="{{route('getorderall')}}">@lang('menu.order')</a></li>
+				<li><a href="typography.html">@lang('menu.wish')</a></li>
 				<li><a href="typography.html">Newsletter</a></li>
 			</ul>
 		</div>

@@ -20,6 +20,10 @@ Route::get('/signin','UserController@getSignIn')->name('getsignin');
 Route::get('/signout','UserController@getSignOut')->name('getsignout');
 
 
+Route::get('/contact','ContentController@getContact')->name('getcontact');
+Route::post('/contact','ContentController@postContact')->name('postcontact');
+
+
 
 // - webshop rész
 

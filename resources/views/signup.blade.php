@@ -11,77 +11,77 @@
 					<form class="form-horizontal" method="post" action="{{route('postsignup')}}">
 						
 						<div class="form-group">
-							<label for="first_name" class="cols-sm-2 control-label">First Name</label>
+							<label for="first_name" class="cols-sm-2 control-label">@lang('register.firstname')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="first_name" id="first_name"  placeholder="Enter your Name"/>
+									<input type="text" class="form-control" name="first_name" id="first_name"  placeholder="@lang('register.enterfirstname')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="last_name" class="cols-sm-2 control-label">Last Name</label>
+							<label for="last_name" class="cols-sm-2 control-label">@lang('register.lastname')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="last_name" id="last_name"  placeholder="Enter your Last Name"/>
+									<input type="text" class="form-control" name="last_name" id="last_name"  placeholder="@lang('register.enterlastname')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="email" class="cols-sm-2 control-label">Your Email</label>
+							<label for="email" class="cols-sm-2 control-label">@lang('register.email')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+									<input type="text" class="form-control" name="email" id="email"  placeholder="@lang('register.enteremail')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="zipcode" class="cols-sm-2 control-label">Zipcode</label>
+							<label for="zipcode" class="cols-sm-2 control-label">@lang('register.zipcode')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="zipcode" id="zipcode"  placeholder="Zipcode"/>
+									<input type="text" class="form-control" name="zipcode" id="zipcode"  placeholder="@lang('register.enterzipcode')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="city" class="cols-sm-2 control-label">City</label>
+							<label for="city" class="cols-sm-2 control-label">@lang('register.city')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="city" id="city"  placeholder="City"/>
+									<input type="text" class="form-control" name="city" id="city"  placeholder="@lang('register.entercity')"/>
 								</div>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label for="password" class="cols-sm-2 control-label">Password</label>
+							<label for="password" class="cols-sm-2 control-label">@lang('register.password')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+									<input type="password" class="form-control" name="password" id="password"  placeholder="@lang('register.enterpassword')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group">
-							<label for="password_confirmation" class="cols-sm-2 control-label">Confirm Password</label>
+							<label for="password_confirmation" class="cols-sm-2 control-label">@lang('register.confirmpassword')</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input type="password" class="form-control" name="password_confirmation" id="password_confirm"  placeholder="Confirm your Password"/>
+									<input type="password" class="form-control" name="password_confirmation" id="password_confirm"  placeholder="@lang('register.enterconfirmpassword')"/>
 								</div>
 							</div>
 						</div>
 
 						<div class="form-group ">
-							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">@lang('register.register')</button>
 						</div>
 						<div class="login-register">
 				            <a href="index.php">Login</a>

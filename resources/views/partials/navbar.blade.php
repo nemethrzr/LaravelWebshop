@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ route('home') }}">Webshop</a>
+          <a class="navbar-brand" href="{{ route('home') }}">@lang('menu.webshop')</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -18,7 +18,7 @@
             @endforeach
             <li class="dropdown">
 
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Webshop <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@lang('menu.webshop') <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Termékek</li>
                 @foreach(App\Category::orderBy('name','ASC')->get() as $category)
@@ -32,20 +32,20 @@
           </ul>
             <ul class="nav navbar-nav navbar-right">            
               <li class="@if(Request::url()==route('getcart')) active @endif ">
-              <a href="{{route('getcart')}}">Cart(<span id="cartbadge">{{Session::has('cart') ? Session::get('cart')->totalQty : 0}}</span>)</a>
+              <a href="{{route('getcart')}}">@lang('menu.cart')(<span id="cartbadge">{{Session::has('cart') ? Session::get('cart')->totalQty : 0}}</span>)</a>
               </li>  
 
 
           @if(Auth::guest())
           
-              <li class="@if(Request::url()==route('getsignin')) active @endif"><a href="{{route('getsignin')}}">Sign In</a></li>
-              <li class="@if(Request::url()==route('getsignup')) active @endif"><a href="{{route('getsignup')}}">Sign Up <span class="sr-only">(current)</span></a></li>
+              <li class="@if(Request::url()==route('getsignin')) active @endif"><a href="{{route('getsignin')}}">@lang('menu.signin')</a></li>
+              <li class="@if(Request::url()==route('getsignup')) active @endif"><a href="{{route('getsignup')}}">@lang('menu.signup')<span class="sr-only">(current)</span></a></li>
             </ul>
           @else
             
 
-              <li><a href="{{route('getaccount')}}">Account</a></li>
-              <li><a href="{{route('getsignout')}}">Sign Out</a></li>
+              <li><a href="{{route('getaccount')}}">@lang('menu.account')</a></li>
+              <li><a href="{{route('getsignout')}}">@lang('menu.signout')</a></li>
             
           @endif
           </ul>
