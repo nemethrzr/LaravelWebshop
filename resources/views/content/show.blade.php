@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('title',$content['menu'])
 
 @section('content')
 

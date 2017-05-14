@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('title','Megrendeléseim')
 
 
 @section('content')

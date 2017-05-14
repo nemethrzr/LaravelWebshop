@@ -1,5 +1,5 @@
 @extends('layouts.default')
-
+@section('title','Megrendelésem részletesen')
 @section('content')
 
 <div class="container">
