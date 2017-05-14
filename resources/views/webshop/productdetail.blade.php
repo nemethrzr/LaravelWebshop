@@ -190,7 +190,7 @@
 					<div class="product-desc"><h3>Leírás:</h3>{{$product->description}}</div>
 					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
 					<hr>
-					<div class="product-price"><strong>{{ number_format($product->pricewithtax,0,' ',' ')}} Ft</strong></div>
+					<div class="product-price"><strong>{{ format_price($product->pricewithtax)}}</strong></div>
 					<div class="product-stock">In Stock</div>
 					<hr>
 					<div class="btn-group cart">

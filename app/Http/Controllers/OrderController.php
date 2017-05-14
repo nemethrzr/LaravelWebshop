@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
+
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\CheckoutRequest;
+
+use Session;
+use Auth;
+
 use App\Address;
 use App\PaymentType;
 use App\ShippingMethod;
 use App\Order;
 use App\OrderProduct;
-use Auth;
+
 
 class OrderController extends Controller
 {
@@ -102,7 +106,7 @@ class OrderController extends Controller
                         'qty'=>$item['qty'],
                         'price'=>$item['price'],
                         'product_id'=>$item['item']['id'],
-                        'pricewithtax'=>$item['price'],
+                        //'pricewithtax'=>$item['price'],
                         //'order_id'=>$order->id
                     ]));
 
@@ -132,7 +136,20 @@ class OrderController extends Controller
 
     public function ShowAll(){
        // $orders = Order::where('user_id',Auth::user()->id)->paginate(10);
-         $orders = Order::where('user_id',Auth::user()->id)->with('payment_type')->paginate(10);
+         $orders = Order::where('user_id',Auth::user()->id)->with('payment_type')->orderBy('created_at','DESC')->paginate(15);
         return view('user.order',['orders'=>$orders]);
+    }
+
+    public function show($order_id)
+    {
+        //ide még bekell includolni a szállításí számlázási címeket
+        //$order          = Order::find($order_id)->with('order_products','payment_type','shipping_method','products')->first();
+        $order = Order::where('id',$order_id)->with('order_products.product.category','payment_type','shipping_method','billing_address','shipping_address')->first();
+       // $order->order_products()->with('products')->get();
+       
+        //$order_products = OrderProduct::find($order->)
+
+       
+        return view('user.orderdetails',['order'=>$order]);
     }
 }

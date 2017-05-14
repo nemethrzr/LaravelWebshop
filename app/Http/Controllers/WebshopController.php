@@ -169,7 +169,6 @@ class WebshopController extends Controller
 
         if($request->ajax()){
             return response()->json($cart);
-
         }
         return redirect()->back();
 

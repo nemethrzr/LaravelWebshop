@@ -6,18 +6,14 @@
 	<th></th>	
 </thead>
 <tbody>
+	@foreach($order as $item)
 	<tr>
-		<td>2017.05.03</td>
-		<td>1.1</td>
-		<td>300</td>
-		<td><a href="">Megtekintés</a></td>
+		<td>{{$item->created_at}}</td>
+		<td>{{$item->id}}</td>
+		<td>{{ format_price($item->price)}}</td>
+		<td><a href="{{route('getorder',['order_id'=>$item->id])}}">Megtekintés</a></td>
 	</tr>
-	<tr>
-		<td>2017.05.03</td>
-		<td>1.2</td>
-		<td>200</td>
-		<td><a href="">Megtekintés</a></td>
-	</tr>
+	@endforeach	
 </tbody>
 <tfoot>
 	<tr>

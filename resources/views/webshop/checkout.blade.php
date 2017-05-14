@@ -51,8 +51,8 @@
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                         <strong>{{ $product['qty'] }}</strong>                        
                         </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong> {{ number_format($product['item']['price'],0,' ',' ') }} Ft</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong class="total"> {{ number_format($product['price'],0,' ',' ') }} Ft</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong> {{ format_price($product['item']['price']) }}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong class="total"> {{ format_price($product['price']) }}</strong></td>
                         <td class="col-sm-1 col-md-1">
                         
 
@@ -70,21 +70,21 @@
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Subtotal</h5></td>
-                        <td class="text-right"><h5><strong id="subtotal">{{number_format($products->totalPrice,0,' ',' ')}} Ft</strong></h5></td>
+                        <td class="text-right"><h5><strong id="subtotal">{{ format_price($products->totalPrice) }}</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h5>Estimated shipping</h5></td>
-                        <td class="text-right"><h5><strong id="shipping">{{$products->shipping}} Ft</strong></h5></td>
+                        <td class="text-right"><h5><strong id="shipping">{{ format_price($products->shipping)}}</strong></h5></td>
                     </tr>
                     <tr>
                         <td>   </td>
                         <td>   </td>
                         <td>   </td>
                         <td><h3>Total</h3></td>
-                        <td class="text-right"><h3><strong id="total">{{number_format($products->totalPrice+$products->shipping,0,' ',' ')}} Ft</strong></h3></td>
+                        <td class="text-right"><h3><strong id="total">{{format_price($products->totalPrice+$products->shipping)}}</strong></h3></td>
                     </tr>
                    
 

@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use App\User;
 use App\Address;
+use App\Order;
 
 
 class UserController extends Controller
@@ -98,7 +99,10 @@ class UserController extends Controller
         session('product_id','12');
         $session_product_id = session('product_id');
         $id = session('product_id');
-        return view('user.show',['user'=>$user,'session_product_id'=>$session_product_id,'id'=>$id,'addresses'=>$addresses,'billing_address'=>$billing_address]);
+        //$order = Auth::user()->order;
+        $order = Order::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(5);
+        //dd($order);
+        return view('user.show',['user'=>$user,'session_product_id'=>$session_product_id,'id'=>$id,'addresses'=>$addresses,'billing_address'=>$billing_address,'order'=>$order]);
     }
     public function postAccount(AddressRequest $request)
     {

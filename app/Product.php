@@ -27,6 +27,9 @@ class Product extends Model
 
     	return $this->belongsTo('App\Category');
     }
+    public function order_products(){
+        return $this->hasMany('App\OrderProduct');
+    }
 
     public function getPriceWithTaxAttribute()
     {

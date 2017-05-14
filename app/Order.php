@@ -19,4 +19,11 @@ class Order extends Model
     public function shipping_method(){
     	return $this->belongsTo('App\ShippingMethod');
     }
+    public function billing_address()
+    {
+        return $this->belongsTo('App\Address');
+    }
+    public function shipping_address(){
+        return $this->belongsTo('App\Address');
+    }
 }

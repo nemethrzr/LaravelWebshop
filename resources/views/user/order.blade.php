@@ -34,13 +34,14 @@
 		<td>{{$order->payment_type->name}}</td>
 		<td>{{ number_format($order->price,0,' ', ' ') }} Ft</td>
 		<td>{{$order->status}}</td>
-		<td><a href="">Megtekint</a></td>
+		<td><a href="{{route('getorder',['order_id'=>$order->id])}}">Megtekint</a></td>
 
 	</tr>
 
 
 	@endforeach
 	</table>
+	 
 	@include('webshop.partials.paginator',['paginator'=>$orders])
 </div>	
 @endsection
